@@ -25,7 +25,7 @@
         android:layout_width="409dp"
         android:layout_height="94dp"
         android:gravity="center"
-        android:text="hi admin"
+        android:text="Hi Admin"
         android:textSize="24sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -35,20 +35,19 @@
 
     <LinearLayout
         android:layout_width="0dp"
-        android:layout_height="410dp"
+        android:layout_height="310dp"
         android:layout_margin="30dp"
         android:background="@color/alpha"
         android:orientation="vertical"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.733"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.95">
+        app:layout_constraintVertical_bias="0.707">
 
         <androidx.cardview.widget.CardView
             android:layout_width="match_parent"
-            android:layout_height="195dp"
+            android:layout_height="145dp"
             android:layout_marginBottom="10dp"
             android:backgroundTint="@color/startColor"
             app:cardCornerRadius="20dp"
@@ -56,19 +55,19 @@
             app:cardMaxElevation="20dp">
 
             <TextView
-                android:id="@+id/textView2"
+                android:id="@+id/studdata"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:gravity="center"
                 android:text="STUDENTS DATA"
                 android:textColor="@color/font"
-                android:textSize="34sp"
+                android:textSize="24sp"
                 android:textStyle="bold" />
         </androidx.cardview.widget.CardView>
 
         <androidx.cardview.widget.CardView
             android:layout_width="match_parent"
-            android:layout_height="195dp"
+            android:layout_height="145dp"
             android:layout_marginTop="10dp"
             android:backgroundTint="@color/endcolor"
             app:cardCornerRadius="20dp"
@@ -76,15 +75,30 @@
             app:cardMaxElevation="20dp">
 
             <TextView
-                android:id="@+id/textView3"
+                android:id="@+id/updtdata"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_gravity="center"
                 android:gravity="center"
                 android:text="UPDATE DATA"
                 android:textColor="@color/font"
-                android:textSize="34sp"
+                android:textSize="24sp"
                 android:textStyle="bold" />
         </androidx.cardview.widget.CardView>
     </LinearLayout>
+
+    <Button
+        android:id="@+id/logout"
+        android:layout_width="137dp"
+        android:layout_height="68dp"
+        android:backgroundTint="@color/font"
+        android:text="LOGOUT"
+        android:textColor="@color/endcolor"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.975" />
 </androidx.constraintlayout.widget.ConstraintLayout>

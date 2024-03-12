@@ -13,6 +13,9 @@
         android:theme="@style/Theme.StudentDatabase"
         tools:targetApi="31">
         <activity
+            android:name=".listitemview"
+            android:exported="false" />
+        <activity
             android:name=".MainActivityhome"
             android:exported="false" />
         <activity

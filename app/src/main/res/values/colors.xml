@@ -4,7 +4,8 @@
     <color name="white">#FFFFFFFF</color>
     <color name="font">#335459</color>
     <color name="startColor">#67A3AD</color>
-    <color name="endcolor">#FDADEFFB</color>
-    <color name="alpha">#00F7F9FA</color>
+    <color name="endColor">#FDADEFFB</color>
+    <color name="alpha">#00000000</color>
+    <color name="splash">#FF79ABB2</color>
 
 </resources>

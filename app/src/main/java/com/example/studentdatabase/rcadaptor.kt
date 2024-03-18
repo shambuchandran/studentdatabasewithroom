@@ -1,42 +1,58 @@
-//package com.example.studentdatabase
-//
-//import android.net.Uri
-//import android.view.LayoutInflater
-//import android.view.View
-//import android.view.ViewGroup
-//import android.widget.ImageView
-//import android.widget.TextView
-//import androidx.recyclerview.widget.RecyclerView
-//import com.example.studentdatabase.Data.StudentData
-//
-//class rcadaptor():RecyclerView.Adapter<Studentviewholder>() {
-//    private val studentDatalist=ArrayList<StudentData>()
-//    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): Studentviewholder {
-//        val layoutInflater=LayoutInflater.from(parent.context)
-//        val listitem=layoutInflater.inflate(R.layout.activity_listitemview,parent,false)
-//        return Studentviewholder(listitem)
-//    }
-//
-//    override fun getItemCount(): Int {
-//        return studentDatalist.size
-//    }
-//
-//    override fun onBindViewHolder(holder: Studentviewholder, position: Int) {
-//       holder.bind(studentDatalist[position])
-//    }
-//    fun setlist(studentData:List<StudentData>){
-//        studentDatalist.clear()
-//        studentDatalist.addAll(studentData)
+package com.example.studentdatabase
+
+import android.app.Activity
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
+import android.widget.ImageView
+import android.widget.TextView
+import androidx.recyclerview.widget.RecyclerView
+import com.example.studentdatabase.Data.StudentData
+
+
+class rcadaptor( var context: Activity): RecyclerView.Adapter<rcadaptor.StudentViewHolder>() {
+    private val studentList = mutableListOf<StudentData>()
+
+//    class Studentviewholder(private val view: View) : RecyclerView.ViewHolder(view) {
+//        //val rcimage = view.findViewById<ImageView>(R.id.rcprofile)
+//        val rcname = view.findViewById<TextView>(R.id.rcname)
 //
 //    }
-//
-//}
-//class Studentviewholder(private val view: View):RecyclerView.ViewHolder(view){
-//    fun bind(studentData: StudentData){
-//        val rcprofilepic=view.findViewById<ImageView>(R.id.rcprofile)
-//        val rcname=view.findViewById<TextView>(R.id.rcname)
-//        rcprofilepic.setImageURI(Uri.parse(studentData.profileImage.toString()))
-//        rcname.text=studentData.name
-//
-//    }
-//}
+    class StudentViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+
+        val nameTextView: TextView = itemView.findViewById(R.id.rcname)
+        //val ageTextView: TextView = itemView.findViewById(R.id.student_age_text)
+       // val rollNoTextView: TextView = itemView.findViewById(R.id.student_roll_no_text)
+       // val emailTextView: TextView = itemView.findViewById(R.id.student_email_text)
+    // Update ImageView reference if needed for profile image
+    // val profileImageView: ImageView = itemView.findViewById(R.id.student_profile_image)
+    }
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): StudentViewHolder {
+        val itemview=LayoutInflater.from(parent.context).inflate(R.layout.activity_listitemview,parent,false)
+        return StudentViewHolder(itemview)
+    }
+
+    override fun getItemCount(): Int {
+        return studentList.size
+    }
+
+    override fun onBindViewHolder(holder: StudentViewHolder, position: Int) {
+       //var name=datalist[position]
+        //holder.rcimage.setImageResource()
+
+        //holder.rcname.text=name
+
+        val student = studentList[position]
+        holder.nameTextView.text = student.name
+        //holder.ageTextView.text = student.age
+        //holder.rollNoTextView.text = student.rollNo.toString()
+       // holder.emailTextView.text = student.emailId
+        // Update profile image if needed (assuming you have an ImageView in your layout)
+        // holder.profileImageView.setImageResource(student.profileImage)
+    }
+    fun updateStudentList(newList: List<StudentData>) {
+        studentList.clear()
+        studentList.addAll(newList)
+        notifyDataSetChanged()
+    }
+}

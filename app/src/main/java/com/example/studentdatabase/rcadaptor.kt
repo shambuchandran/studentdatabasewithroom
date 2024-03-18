@@ -12,15 +12,24 @@ import com.bumptech.glide.Glide
 import com.example.studentdatabase.Data.StudentData
 
 
-class rcadaptor( var context: Activity): RecyclerView.Adapter<rcadaptor.StudentViewHolder>() {
+class rcadaptor( var context: Activity,private val itemClickListener: onItemClickedListen): RecyclerView.Adapter<rcadaptor.StudentViewHolder>() {
     private val studentList = mutableListOf<StudentData>()
+
+
 
 //    class Studentviewholder(private val view: View) : RecyclerView.ViewHolder(view) {
 //        //val rcimage = view.findViewById<ImageView>(R.id.rcprofile)
 //        val rcname = view.findViewById<TextView>(R.id.rcname)
 //
 //    }
-    class StudentViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+interface onItemClickedListen {
+    fun onItemClicked(studentData: StudentData)
+}
+
+//    fun setitemclick(listener: onItemClickedListen) {
+//        itemClickListener = listener
+//    }
+    inner class StudentViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
         val nameTextView: TextView = itemView.findViewById(R.id.rcname)
         //val ageTextView: TextView = itemView.findViewById(R.id.student_age_text)
@@ -28,6 +37,16 @@ class rcadaptor( var context: Activity): RecyclerView.Adapter<rcadaptor.StudentV
        // val emailTextView: TextView = itemView.findViewById(R.id.student_email_text)
     // Update ImageView reference if needed for profile image
         val profileImageView: ImageView = itemView.findViewById(R.id.rcprofile)
+        init {
+            itemView.setOnClickListener {
+                val position = adapterPosition
+                if (position != RecyclerView.NO_POSITION){
+                    itemClickListener.onItemClicked(studentList[position])
+
+                }
+
+            }
+        }
     }
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): StudentViewHolder {
         val itemview=LayoutInflater.from(parent.context).inflate(R.layout.activity_listitemview,parent,false)

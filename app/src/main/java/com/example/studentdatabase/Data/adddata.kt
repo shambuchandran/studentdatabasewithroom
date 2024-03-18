@@ -1,10 +1,13 @@
 package com.example.studentdatabase.Data
 
+import android.app.Activity
 import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
-import android.widget.Button
+import android.provider.MediaStore
 import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
@@ -22,6 +25,17 @@ class adddata : AppCompatActivity() {
     private lateinit var binding: ActivityAdddataBinding
     lateinit var database: StudentDataBase
     private lateinit var adapter: rcadaptor
+    private var selectedImageUri: Uri? = null
+    private val pickImage = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
+        if (result.resultCode == Activity.RESULT_OK) {
+            val imageUri = result.data?.data
+            selectedImageUri = imageUri
+            // Load the selected image into ImageView or handle it as per your requirement
+            // For example, if you have an ImageView named 'profilePicImageView'
+            // binding.profilePicImageView.setImageURI(imageUri)
+        }
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
@@ -34,12 +48,16 @@ class adddata : AppCompatActivity() {
             insets
         }
 
+
 //        binding.save.setOnClickListener {
 //            writeData()
 //            val intent= Intent(this,recyclerview::class.java)
 //            intent.putExtra("NAME",name)
 //            startActivity(intent)
 //        }
+        binding.profilepic.setOnClickListener{
+            selectImage()
+        }
         binding.delete.setOnClickListener {
             GlobalScope.launch {
                 database.getDaoData().deleteAll()
@@ -64,15 +82,27 @@ class adddata : AppCompatActivity() {
             }
         }
     }
+//    private fun selectImage() {
+//        val intent = Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI)
+//        pickImage.launch(intent)
+//    }
+    private fun selectImage() {
+        val intent = Intent(Intent.ACTION_OPEN_DOCUMENT)
+        intent.addCategory(Intent.CATEGORY_OPENABLE)
+        intent.type = "image/*"
+        pickImage.launch(intent)
+    }
+
     private fun writeData(): List<String>?{
         val name=binding.name.text.toString()
         val age=binding.age.text.toString()
         val rollno=binding.rollNo.text.toString()
         val email=binding.email.text.toString()
+        //val image=binding.profilepic.setImageResource()
         //if (name.isNotEmpty()&&age.isNotEmpty()&&rollno.isNotEmpty()&&email.isNotEmpty()){
             if (name.isNotEmpty() && age.isNotEmpty() && rollno > 0.toString() && email.isNotEmpty()) {
             //val student=StudentData(null,name,age,rollno.toInt(),email)
-                val student = StudentData(null, name, age, rollno.toInt(), email)
+                val student = StudentData(null, name,selectedImageUri.toString(), age, rollno.toInt(), email)
             GlobalScope.launch (Dispatchers.IO){
                 database.getDaoData().addData(student)
             }
@@ -100,6 +130,13 @@ class adddata : AppCompatActivity() {
                 }
             }
         }.start()
+//        GlobalScope.launch(Dispatchers.IO) {
+//            val studentList = database.getDaoData().showStudData()
+//            withContext(Dispatchers.Main) {
+//                adapter.updateStudentList(studentList)
+//            }
+//        }
+
 //        database.getDaoData().showStudData().observe(this) { studentList ->
 //            studentList?.let {
 //                adapter.updateStudentList(it)

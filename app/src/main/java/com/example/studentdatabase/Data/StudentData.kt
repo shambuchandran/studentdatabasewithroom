@@ -8,7 +8,7 @@ data class StudentData(
     @PrimaryKey(autoGenerate = true)
     val id: Int?,
     val name:String,
-//    val profileImage:Int,
+    val profileImage:String,
     val age: String,
     val rollNo:Int,
     val emailId:String)

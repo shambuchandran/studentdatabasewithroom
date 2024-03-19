@@ -28,6 +28,9 @@ class MainActivity : AppCompatActivity() {
 
         val savedUserName = "username"
         val savedPassword = "12345"
+        val editor=getSharedPreferences("LOGINDETAILS", MODE_PRIVATE)
+        username.setText(editor.getString("USERNAME",null))
+        userPassword.setText(editor.getString("PASSWORD",null))
 
         loginButton.setOnClickListener {
             val enteredUserName = username.text.toString()
@@ -37,12 +40,17 @@ class MainActivity : AppCompatActivity() {
             } else if (enteredPassword != savedPassword) {
                 Toast.makeText(this, "Wrong password", Toast.LENGTH_LONG).show()
             } else {
+                val editor=getSharedPreferences("LOGINDETAILS", MODE_PRIVATE).edit()
+                editor.putString("USERNAME",username.text.toString())
+                editor.putString("PASSWORD",userPassword.text.toString())
+                editor.apply()
                 Intent(this, MainActivityhome::class.java).also {
                     startActivity(it)
                     username.text.clear()
                     userPassword.text.clear()
                 }
             }
+
         }
     }
 }
